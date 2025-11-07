@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import { Button } from "./ui/button";
+import { AnimatedBackground } from "./AnimatedBackground";
+import { FloatingShapes } from "./FloatingShapes";
 
 export function HeroSection() {
   const scrollToSection = (href: string) => {
@@ -16,7 +18,9 @@ export function HeroSection() {
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
       data-testid="section-hero"
     >
-      <div className="absolute inset-0 bg-gradient-to-b from-primary/10 via-transparent to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-b from-background via-background to-background/95" />
+      <AnimatedBackground />
+      <FloatingShapes />
       
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 text-center">
         <motion.div
