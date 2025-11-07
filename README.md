@@ -1,6 +1,6 @@
 # AstroFolio (local development)
 
-This repository was originally set up with Replit-specific configuration. I removed Replit files and plugins so the project behaves like a typical local Node + Vite project.
+This repository is configured for local development with Node and Vite.
 
 Quick start (Windows PowerShell):
 
@@ -29,5 +29,4 @@ npm start
 ```
 
 Notes
-- Replit-specific Vite plugins and the `.replit` file were removed.
-- If you prefer, you can re-add cross-env to devDependencies and update scripts for better cross-platform compatibility.
+- Project is configured for local usage. If you prefer, you can re-add `cross-env` to devDependencies and update scripts for better cross-platform compatibility.
