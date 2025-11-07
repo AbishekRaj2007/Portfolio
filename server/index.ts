@@ -1,3 +1,9 @@
+// Load environment variables from a .env file into process.env
+// Using ESM-safe import so this works with `type: "module"` in package.json
+import "dotenv/config";
+// Log NODE_ENV early for visibility during startup
+console.log(process.env.NODE_ENV);
+
 import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
@@ -71,11 +77,48 @@ app.use((req, res, next) => {
   // this serves both the API and the client.
   // It is the only port that is not firewalled.
   const port = parseInt(process.env.PORT || '5000', 10);
-  server.listen({
-    port,
-    host: "0.0.0.0",
-    reusePort: true,
-  }, () => {
-    log(`serving on port ${port}`);
-  });
+  // `reusePort` is not supported on all platforms (notably some Windows setups).
+  // Only set it when the platform supports it.
+  const listenOptions: any = { port, host: "0.0.0.0" };
+  if (process.platform !== "win32") {
+    listenOptions.reusePort = true;
+  }
+
+  // Attempt to listen, and if the port is in use try the next port a few times.
+  const maxRetries = 5;
+  let attempt = 0;
+
+  const tryListen = (p: number) => {
+    attempt += 1;
+
+    const onError = (err: any) => {
+      if (err && err.code === "EADDRINUSE") {
+        log(`port ${p} is in use`);
+        server.removeListener("error", onError);
+        if (attempt <= maxRetries) {
+          const next = p + 1;
+          log(`trying port ${next} (attempt ${attempt}/${maxRetries})`);
+          tryListen(next);
+        } else {
+          log(`failed to bind after ${maxRetries} attempts`);
+          process.exit(1);
+        }
+      } else {
+        // rethrow other errors
+        throw err;
+      }
+    };
+
+    server.once("error", onError);
+
+    const opts: any = { port: p, host: listenOptions.host };
+    if (listenOptions.reusePort) opts.reusePort = listenOptions.reusePort;
+
+    server.listen(opts, () => {
+      server.removeListener("error", onError);
+      log(`serving on port ${p}`);
+    });
+  };
+
+  tryListen(port);
 })();

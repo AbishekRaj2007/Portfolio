@@ -35,7 +35,7 @@ export function HeroSection() {
             transition={{ delay: 0.2, duration: 0.8 }}
           >
             <span className="bg-gradient-to-r from-primary via-chart-2 to-chart-3 bg-clip-text text-transparent">
-              Creative Developer
+              Abishek Raj R R
             </span>
           </motion.h1>
 

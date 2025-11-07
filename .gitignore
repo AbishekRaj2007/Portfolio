@@ -1,3 +1,15 @@
+node_modules/
+dist/
+dist/public/
+.env
+.env.local
+*.log
+package-lock.json
+.DS_Store
+.vscode/
+.idea/
+generated-icon.png
+node_modules/
 node_modules
 dist
 .DS_Store

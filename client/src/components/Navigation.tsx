@@ -17,6 +17,7 @@ export function Navigation() {
   const { theme, toggleTheme } = useTheme();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState<string | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -24,6 +25,36 @@ export function Navigation() {
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Observe sections and set the active nav link based on which section is in view
+  useEffect(() => {
+    const sections = navLinks
+      .map((l) => l.href)
+      .map((href) => document.querySelector(href))
+      .filter(Boolean) as Element[];
+
+    if (!sections.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        // pick the entry with highest intersectionRatio that's intersecting
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+        if (visible && visible.target && visible.target.id) {
+          setActiveSection(`#${visible.target.id}`);
+        }
+      },
+      {
+        threshold: [0.25, 0.5, 0.75],
+        rootMargin: '-40% 0px -40% 0px',
+      },
+    );
+
+    sections.forEach((s) => observer.observe(s));
+    return () => observer.disconnect();
   }, []);
 
   const scrollToSection = (href: string) => {
@@ -40,7 +71,8 @@ export function Navigation() {
       animate={{ y: 0 }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? "backdrop-blur-lg bg-background/80 border-b border-border shadow-lg"
+          ? // glassmorphism: frosted backdrop + translucent background + subtle border and shadow
+            "backdrop-blur-xl bg-white/30 dark:bg-slate-900/30 border border-white/10 dark:border-white/20 shadow-lg"
           : "bg-transparent"
       }`}
       data-testid="nav-main"
@@ -68,7 +100,13 @@ export function Navigation() {
                   variant="ghost"
                   size="sm"
                   onClick={() => scrollToSection(link.href)}
-                  className="hover-elevate"
+                  className={`hover-elevate transition-all duration-200 ${
+                    activeSection === link.href
+                      ? // active glass highlight
+                        "bg-white/30 dark:bg-slate-800/40 text-primary border border-white/20 dark:border-white/10 backdrop-blur-sm rounded-md px-3 py-1 shadow-md"
+                      : ""
+                  }`}
+                  aria-current={activeSection === link.href ? "page" : undefined}
                   data-testid={`nav-link-${link.name.toLowerCase()}`}
                 >
                   {link.name}
@@ -115,7 +153,7 @@ export function Navigation() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden backdrop-blur-lg bg-background/95 border-b border-border"
+            className="md:hidden backdrop-blur-xl bg-white/25 dark:bg-slate-900/40 border-t border-white/10 dark:border-white/20"
           >
             <div className="px-4 py-4 space-y-2">
               {navLinks.map((link) => (
@@ -123,7 +161,11 @@ export function Navigation() {
                   key={link.name}
                   variant="ghost"
                   onClick={() => scrollToSection(link.href)}
-                  className="w-full justify-start hover-elevate"
+                  className={`w-full justify-start hover-elevate transition-all duration-150 ${
+                    activeSection === link.href
+                      ? "bg-white/25 dark:bg-slate-800/40 rounded-md px-3 py-2 border border-white/10 dark:border-white/20 shadow-sm"
+                      : ""
+                  }`}
                   data-testid={`mobile-nav-link-${link.name.toLowerCase()}`}
                 >
                   {link.name}

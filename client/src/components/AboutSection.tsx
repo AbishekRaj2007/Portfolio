@@ -34,10 +34,14 @@ export function AboutSection() {
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <Card className="p-8 hover-elevate">
-              <div className="aspect-square rounded-xl bg-gradient-to-br from-primary/20 to-chart-2/20 flex items-center justify-center">
-                <div className="text-8xl font-bold bg-gradient-to-r from-primary to-chart-2 bg-clip-text text-transparent">
-                  JD
-                </div>
+              <div className="aspect-square rounded-xl overflow-hidden bg-gradient-to-br from-primary/20 to-chart-2/20 flex items-center justify-center">
+                {/* When using Vite, files placed in client/public are served from the site root.
+                    Use a root-relative URL like "/profile.jpg". Avoid absolute filesystem paths. */}
+                <img
+                  src="/profile.jpg"
+                  alt="Profile"
+                  className="w-full h-full object-cover"
+                />
               </div>
             </Card>
           </motion.div>
@@ -54,9 +58,7 @@ export function AboutSection() {
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.6, delay: 0.5 }}
             >
-              Hi! I'm a passionate developer specializing in creating immersive web experiences.
-              With expertise in modern frameworks and 3D technologies, I bring ideas to life through
-              code and creativity.
+              Hey! I’m a developer driven by curiosity and creativity. I build across the digital spectrum from sleek web apps and mobile interfaces to AI-powered tools and experimental 3D projects.
             </motion.p>
 
             <motion.p
@@ -65,9 +67,7 @@ export function AboutSection() {
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.6, delay: 0.6 }}
             >
-              I love pushing the boundaries of what's possible on the web, combining stunning
-              visuals with seamless functionality. My focus is on delivering exceptional user
-              experiences that are both beautiful and performant.
+              I love pushing boundaries, exploring emerging technologies, and turning complex ideas into seamless, intuitive experiences. My work is fueled by the belief that great tech should feel like magic simple, powerful, and human.
             </motion.p>
 
             <motion.p
@@ -76,8 +76,7 @@ export function AboutSection() {
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.6, delay: 0.7 }}
             >
-              When I'm not coding, you'll find me exploring new technologies, contributing to
-              open-source projects, or experimenting with creative coding and generative art.
+              When I’m not deep in code, I’m learning new technologies, sketching ideas, or tinkering with creative projects that blend design and innovation.
             </motion.p>
           </motion.div>
         </div>

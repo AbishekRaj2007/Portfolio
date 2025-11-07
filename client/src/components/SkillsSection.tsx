@@ -14,13 +14,14 @@ import {
 
 const skills = [
   { name: "React & Next.js", icon: Code2, color: "from-blue-500 to-cyan-500" },
-  { name: "TypeScript", icon: Layers, color: "from-blue-600 to-blue-400" },
-  { name: "Three.js & WebGL", icon: Box, color: "from-purple-500 to-pink-500" },
-  { name: "Tailwind CSS", icon: Palette, color: "from-cyan-500 to-blue-500" },
+  { name: "APIs", icon: Layers, color: "from-blue-600 to-blue-400" },
+  { name: "Python & Java", icon: Box, color: "from-purple-500 to-pink-500" },
+  { name: "TypeScript & Tailwind CSS", icon: Palette, color: "from-cyan-500 to-blue-500" },
   { name: "Node.js", icon: Cpu, color: "from-green-500 to-emerald-500" },
-  { name: "GraphQL & APIs", icon: Database, color: "from-pink-500 to-rose-500" },
-  { name: "Performance", icon: Zap, color: "from-yellow-500 to-orange-500" },
-  { name: "Web3 & Blockchain", icon: Globe, color: "from-violet-500 to-purple-500" },
+  { name: "MySQL & MongoDB", icon: Database, color: "from-pink-500 to-rose-500" },
+  { name: "Machine Learning", icon: Zap, color: "from-yellow-500 to-orange-500" },
+  { name: "Git & Github", icon: Globe, color: "from-violet-500 to-purple-500" },
+  
 ];
 
 export function SkillsSection() {
