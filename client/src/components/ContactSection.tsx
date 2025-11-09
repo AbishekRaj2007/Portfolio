@@ -4,14 +4,14 @@ import { Card } from "./ui/card";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
-import { Github, Linkedin, Mail, Twitter } from "lucide-react";
+import { Github, Linkedin, Mail, Instagram } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 const socialLinks = [
-  { name: "GitHub", icon: Github, href: "https://github.com", color: "hover:text-foreground" },
-  { name: "LinkedIn", icon: Linkedin, href: "https://linkedin.com", color: "hover:text-blue-500" },
-  { name: "Twitter", icon: Twitter, href: "https://twitter.com", color: "hover:text-blue-400" },
-  { name: "Email", icon: Mail, href: "mailto:hello@example.com", color: "hover:text-primary" },
+  { name: "GitHub", icon: Github, href: "https://github.com/AbishekRaj2007", color: "hover:text-foreground" },
+  { name: "LinkedIn", icon: Linkedin, href: "https://www.linkedin.com/in/abishek-raj-a2aa39318/", color: "hover:text-blue-500" },
+  { name: "Instagram", icon: Instagram, href: "https://www.instagram.com/abisxek._.r?igsh=MWdsM3lwaTg3aDMyMg==", color: "hover:text-blue-400" },
+  { name: "Email", icon: Mail, href: "mailto:rrabishekraj2007@gmail.com", color: "hover:text-primary" },
 ];
 
 export function ContactSection() {
