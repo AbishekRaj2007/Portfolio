@@ -6,38 +6,62 @@ import { Briefcase } from "lucide-react";
 const experiences = [
   {
     id: 1,
-    role: "Senior Frontend Developer",
-    company: "TechCorp Inc.",
-    period: "2022 - Present",
-    description: "Leading development of next-generation web applications using React, Three.js, and modern animation libraries.",
+    role: "VisionX Hackathon 2nd Runner-Up",
+    company: "Chennai Institute of Technology",
+    period: "2025",
+    description: "Developed an innovative Railway Management System using AI and IoT technologies.",
     achievements: [
-      "Built award-winning 3D product configurator",
-      "Improved performance by 40% through optimization",
-      "Mentored team of 5 junior developers",
+      "Built award-winning design",
+      "Improved performance by advancing AI algorithms",
+      "Worked with a team of 3 members",
     ],
   },
   {
     id: 2,
-    role: "Full Stack Developer",
-    company: "Creative Studio",
-    period: "2020 - 2022",
-    description: "Developed interactive websites and web applications for high-profile clients.",
+    role: "Solved 500+ Leetcode Problems",
+    company: "Leetcode",
+    period: "2025",
+    description:"Solved over 500 problems on Leetcode, enhancing problem-solving skills and algorithmic thinking.",
     achievements: [
-      "Delivered 15+ client projects on time",
-      "Implemented WebGL experiences for major brands",
-      "Established best practices for team workflow",
+      "Delivered efficient solutions in various programming languages",
+      "Implemented optimized algorithms for complex problems",
+      "Established consistent problem-solving strategies",
     ],
   },
   {
     id: 3,
-    role: "Frontend Developer",
-    company: "StartupXYZ",
-    period: "2018 - 2020",
-    description: "Built responsive web applications and contributed to product development.",
+    role: "AIML Certified by Google for Developers",
+    company: "Google",
+    period: "2025",
+    description: "Completed AIML certification program by Google for Developers, gaining expertise in AI and machine learning technologies.",
     achievements: [
-      "Developed core features used by 100k+ users",
-      "Reduced bundle size by 60%",
-      "Implemented comprehensive testing suite",
+      "Developed proficiency in machine learning frameworks",
+      "Reduced model training time by optimizing algorithms",
+      "Implemented AI solutions for real-world applications",
+    ],
+  },
+  {
+    id: 4,
+    role: "AWS IoT Cloud Engineer Certified by Google for Developers",
+    company: "Google",
+    period: "2025",
+    description: "Completed AWS IoT Cloud Engineer certification program by Google for Developers, gaining expertise in cloud and IoT technologies.",
+    achievements: [
+      "Developed proficiency in cloud computing and IoT frameworks",
+      "Reduced deployment time by optimizing cloud infrastructure",
+      "Gained hands-on experience with AWS IoT services",
+    ],
+  },
+  {
+    id: 5,
+    role: "MongoDB Certified Developer",
+    company: "MongoDB",
+    period: "2025",
+    description: "Completed MongoDB Developer certification program by Google for Developers, gaining expertise in database management and development.",
+    achievements: [
+      "Delivered efficient database solutions",
+      "Efficiently managed and optimized database performance",
+      "Implemented scalable database architectures",
     ],
   },
 ];
@@ -61,7 +85,7 @@ export function ExperienceSection() {
           className="text-center mb-16"
         >
           <h2 className="font-display font-bold text-4xl md:text-5xl mb-4">
-            Experience
+            Certiications & Achievements
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-primary to-chart-2 mx-auto rounded-full" />
         </motion.div>
