@@ -1,32 +1,67 @@
-# AstroFolio (local development)
+﻿# Abishek Raj — Personal portfolio
 
-This repository is configured for local development with Node and Vite.
+A Vite + React (TypeScript) portfolio and minimal Node server for demoing projects and experiences.
 
-Quick start (Windows PowerShell):
+## Highlights
 
-1. Install dependencies
+- Clean, component-driven UI with Tailwind CSS and Framer Motion
+- Server-side code for any API endpoints under `server/`
+- Uses Drizzle ORM for database wiring (if needed)
+
+## Prerequisites
+
+- Node 18+ and npm (or pnpm)
+
+## Quick start (Windows PowerShell)
+
+1) Install dependencies
 
 ```powershell
 npm install
 ```
 
-2. Run the development server
+2) Run the development server (PowerShell)
 
-The root `dev` script expects an environment variable `NODE_ENV=development` which is set differently on Windows. In PowerShell you can run the server with:
+This project uses a small Node server for SSR/preview. In PowerShell you can run the dev server with:
 
 ```powershell
-$env:NODE_ENV = 'development'
-npx tsx server/index.ts
+# $env:NODE_ENV = 'development' # only needed if you run server directly
+npm run dev
 ```
 
-Or install `cross-env` and update `package.json` to make `npm run dev` cross-platform.
+If you prefer a cross-platform env var helper, install `cross-env` and the provided `dev` script will work on all platforms.
 
-3. Build for production
+3) Build for production
 
 ```powershell
 npm run build
 npm start
 ```
 
-Notes
-- Project is configured for local usage. If you prefer, you can re-add `cross-env` to devDependencies and update scripts for better cross-platform compatibility.
+## Static assets
+
+Place static images (icons used by cards, etc.) into the top-level `public/` folder. Example: `public/postdost.png` will be served at `/postdost.png`.
+
+## Cleaning local state
+
+This repository may create a local `.local/` folder for tooling state. Add `.local/` to `.gitignore` (already done) and run the following to remove tracked `.local` files from the repo if needed:
+
+```powershell
+# untrack previously committed .local files
+git rm -r --cached .local
+git commit -m "Remove .local files and ignore them"
+git push origin main
+```
+
+## Contributing
+
+Feel free to open issues or PRs. Keep changes focused and add a short description of intent.
+
+## License
+
+MIT
+
+## Notes
+
+You may see a harmless PostCSS warning during build about a missing `from` option — this does not break the build but can be silenced by updating PostCSS plugin configs.
+ cross-platform compatibility.
