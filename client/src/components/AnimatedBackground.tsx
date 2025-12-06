@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import gsap from "gsap";
 
 export function AnimatedBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -38,7 +39,14 @@ export function AnimatedBackground() {
         this.size = Math.random() * 3 + 1;
         this.speedX = (Math.random() - 0.5) * 0.5;
         this.speedY = (Math.random() - 0.5) * 0.5;
-        this.opacity = Math.random() * 0.5 + 0.2;
+        this.opacity = 0;
+        
+        // GSAP fade-in animation for particles
+        gsap.to(this, {
+          opacity: Math.random() * 0.5 + 0.2,
+          duration: Math.random() * 2 + 1,
+          ease: "power2.out"
+        });
         
         const colors = [
           "147, 51, 234",

@@ -1,10 +1,14 @@
 import { motion, useInView } from "framer-motion";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Card } from "./ui/card";
 import { Button } from "./ui/button";
 import { ExternalLink, Github } from "lucide-react";
 import { Badge } from "./ui/badge";
 import { desc } from "drizzle-orm";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const projects = [
   {
@@ -52,6 +56,74 @@ export function ProjectsSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [hoveredProject, setHoveredProject] = useState<number | null>(null);
+  const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
+  const titleRef = useRef<HTMLHeadingElement>(null);
+
+  useEffect(() => {
+    // Animate title on scroll
+    if (titleRef.current) {
+      gsap.from(titleRef.current, {
+        scrollTrigger: {
+          trigger: titleRef.current,
+          start: "top 80%",
+          end: "bottom 20%",
+          toggleActions: "play none none reverse"
+        },
+        scale: 0.5,
+        opacity: 0,
+        duration: 0.8,
+        ease: "back.out(1.7)"
+      });
+    }
+
+    // Animate project cards with stagger
+    cardsRef.current.forEach((card, index) => {
+      if (card) {
+        gsap.from(card, {
+          scrollTrigger: {
+            trigger: card,
+            start: "top 90%",
+            end: "bottom 20%",
+            toggleActions: "play none none reverse"
+          },
+          opacity: 0,
+          y: 100,
+          rotationX: -15,
+          scale: 0.9,
+          duration: 0.8,
+          delay: index * 0.15,
+          ease: "power3.out"
+        });
+
+        // Add hover animation
+        const handleMouseEnter = () => {
+          gsap.to(card, {
+            scale: 1.05,
+            y: -10,
+            duration: 0.3,
+            ease: "power2.out"
+          });
+        };
+
+        const handleMouseLeave = () => {
+          gsap.to(card, {
+            scale: 1,
+            y: 0,
+            duration: 0.3,
+            ease: "power2.out"
+          });
+        };
+
+        card.addEventListener('mouseenter', handleMouseEnter);
+        card.addEventListener('mouseleave', handleMouseLeave);
+
+        return () => {
+          card.removeEventListener('mouseenter', handleMouseEnter);
+          card.removeEventListener('mouseleave', handleMouseLeave);
+        };
+      }
+    });
+  }, []);
 
   return (
     <section
@@ -67,7 +139,7 @@ export function ProjectsSection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="font-display font-bold text-4xl md:text-5xl mb-4">
+          <h2 ref={titleRef} className="font-display font-bold text-4xl md:text-5xl mb-4">
             Projects
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-primary to-chart-2 mx-auto rounded-full" />
@@ -75,13 +147,11 @@ export function ProjectsSection() {
 
         <div className="grid md:grid-cols-2 gap-8">
           {projects.map((project, index) => (
-            <motion.div
+            <div
               key={project.id}
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              onHoverStart={() => setHoveredProject(project.id)}
-              onHoverEnd={() => setHoveredProject(null)}
+              ref={(el) => (cardsRef.current[index] = el)}
+              onMouseEnter={() => setHoveredProject(project.id)}
+              onMouseLeave={() => setHoveredProject(null)}
             >
               <Card
                 className="overflow-hidden hover-elevate h-full flex flex-col"
@@ -174,7 +244,7 @@ export function ProjectsSection() {
                   </div>
                 </div>
               </Card>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

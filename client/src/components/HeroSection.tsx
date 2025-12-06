@@ -3,8 +3,61 @@ import { ChevronDown } from "lucide-react";
 import { Button } from "./ui/button";
 import { AnimatedBackground } from "./AnimatedBackground";
 import { FloatingShapes } from "./FloatingShapes";
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { TextPlugin } from "gsap/TextPlugin";
+
+gsap.registerPlugin(TextPlugin);
 
 export function HeroSection() {
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const subtitleRef = useRef<HTMLParagraphElement>(null);
+  const buttonsRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const tl = gsap.timeline();
+    
+    // Animate title with split text effect
+    if (titleRef.current) {
+      const originalText = titleRef.current.innerText;
+      const chars = originalText.split('');
+      titleRef.current.innerHTML = chars.map(char => 
+        `<span style="display: inline-block; background: linear-gradient(to right, hsl(var(--primary)), hsl(var(--chart-2)), hsl(var(--chart-3))); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">${char === ' ' ? '&nbsp;' : char}</span>`
+      ).join('');
+      
+      tl.from(titleRef.current.children, {
+        opacity: 0,
+        y: 50,
+        rotationX: -90,
+        stagger: 0.02,
+        duration: 0.8,
+        ease: "back.out(1.7)"
+      });
+    }
+    
+    // Animate subtitle
+    if (subtitleRef.current) {
+      tl.from(subtitleRef.current, {
+        opacity: 0,
+        y: 30,
+        duration: 0.8,
+        ease: "power3.out"
+      }, "-=0.4");
+    }
+    
+    // Animate buttons
+    if (buttonsRef.current) {
+      tl.from(buttonsRef.current.children, {
+        opacity: 0,
+        scale: 0.8,
+        y: 20,
+        stagger: 0.1,
+        duration: 0.6,
+        ease: "back.out(1.7)"
+      }, "-=0.3");
+    }
+  }, []);
+
   const scrollToSection = (href: string) => {
     const element = document.querySelector(href);
     if (element) {
@@ -28,31 +81,23 @@ export function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <motion.h1
+          <h1
+            ref={titleRef}
             className="font-display font-bold text-5xl sm:text-6xl md:text-7xl lg:text-8xl mb-6"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.8 }}
           >
-            <span className="bg-gradient-to-r from-primary via-chart-2 to-chart-3 bg-clip-text text-transparent">
-              Abishek Raj R R
-            </span>
-          </motion.h1>
+            Abishek Raj R R
+          </h1>
 
-          <motion.p
+          <p
+            ref={subtitleRef}
             className="text-xl sm:text-2xl md:text-3xl text-muted-foreground mb-12 max-w-3xl mx-auto"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.8 }}
           >
             Building immersive digital experiences with modern web technologies
-          </motion.p>
+          </p>
 
-          <motion.div
+          <div
+            ref={buttonsRef}
             className="flex flex-col sm:flex-row items-center justify-center gap-4"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6, duration: 0.8 }}
           >
             <Button
               size="lg"
@@ -71,7 +116,7 @@ export function HeroSection() {
             >
               Get in Touch
             </Button>
-          </motion.div>
+          </div>
         </motion.div>
       </div>
 
