@@ -52,16 +52,3 @@ git rm -r --cached .local
 git commit -m "Remove .local files and ignore them"
 git push origin main
 ```
-
-## Contributing
-
-Feel free to open issues or PRs. Keep changes focused and add a short description of intent.
-
-## License
-
-MIT
-
-## Notes
-
-You may see a harmless PostCSS warning during build about a missing `from` option — this does not break the build but can be silenced by updating PostCSS plugin configs.
- cross-platform compatibility.
